@@ -1,35 +1,29 @@
-#include <cmath>
-#include <fstream>
-#include <iostream>
+#pragma once
+#include<cmath>
 
-namespace SiriusFM{
-    class DiffusionCEV
-    {
-        private:
-            double const const_mu;
-            double const const_sigma;
-            double const beta;
-        public:
-            double mu(double St, double t){
-                return const_mu*St;
-            }
-            double sigma(double St, double t){
-                if(beta<0){return 0;}
-                if(const_sigma<=0){return 0;}
-                if(beta<0){return 0;}
-                return const_sigma*pow(St, beta);
-            }
-        DiffusionCEV(double const_m, double const_s, double const_beta)
-        :const_mu(const_m),
-         const_sigma(const_s),
-         beta(const_beta)
-        {
-        if(const_sigma<=0 || beta < 0){throw std::invalid_argument("Bad arguments");}
-        }
-    };
+namespace SiriusFM
+{
+                
+	class DiffusionCEV
+	{
+		double const m_muBar;
+		double const m_sigmaBar;
+		double const m_beta;
+
+	public:
+		DiffusionCEV(double m, double s, double b): m_muBar(m), 
+											  		m_sigmaBar(s),
+													m_beta(b)
+		{
+			if(m_sigmaBar <= 0 || m_beta <= 0)
+			{
+			}
+		};
+
+		double mu(double S_t, double t) {return m_muBar * S_t;};
+		double sigma(double S_t, double t) 
+		{
+			return m_sigmaBar * pow(S_t, m_beta);
+		};
+	};
 }
-
-
-
-
-
